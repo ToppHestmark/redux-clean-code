@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { filter } from "minimatch";
+import { createSelector } from "reselect";
 
 let lastId = 0;
 
@@ -7,6 +9,12 @@ const slice = createSlice({
   initialState: [],
   reducers: {
     // actions => action handler
+    bugAssignedToUser: (bugs, action) => {
+      const { bugId, userId } = action.payload;
+      const index = bugs.findIndex((bug) => bug.id === bugId);
+      bugs[index].userId = userId;
+    },
+
     bugAdded: (bugs, action) => {
       bugs.push({
         id: ++lastId,
@@ -22,5 +30,19 @@ const slice = createSlice({
   },
 });
 
-export const { bugAdded, bugResolved } = slice.actions;
+export const { bugAdded, bugResolved, bugAssignedToUser } = slice.actions;
 export default slice.reducer;
+
+// Memorization to improve the performance, no need to re-calculate
+// bugs => get unresolved bugs from the cache
+export const getUnresolvedBugs = createSelector(
+  (state) => state.entities.bugs,
+  (state) => state.entities.projects,
+  (bugs, projects) => bugs.filter((bug) => !bug.resolved)
+);
+
+export const getBugsByUser = (userId) =>
+  createSelector(
+    (state) => state.entities.bugs,
+    (bugs) => bugs.filter((bug) => bug.userId === userId)
+  );
