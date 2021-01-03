@@ -2,6 +2,11 @@ import configureStore from "./store/configureStore";
 
 const store = configureStore();
 
+store.dispatch({
+  type: "error",
+  payload: { message: "Error just occured" },
+});
+
 store.dispatch((dispatch, getState) => {
   // Cann an API
   // When the promise is resolved => dispatch()
