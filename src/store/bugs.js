@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { filter } from "minimatch";
 import { createSelector } from "reselect";
 
 let lastId = 0;
