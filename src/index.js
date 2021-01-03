@@ -1,19 +1,40 @@
 import configureStore from "./store/configureStore";
+import * as actions from "./store/api";
 
 const store = configureStore();
 
-store.dispatch({
-  type: "error",
-  payload: { message: "Error just occured" },
-});
+// Safer solution
+store.dispatch(
+  actions.apiCallBegan({
+    url: "/bugs",
+    onSuccess: "bugsReceived",
+  })
+);
 
-store.dispatch((dispatch, getState) => {
-  // Cann an API
-  // When the promise is resolved => dispatch()
-  dispatch({ type: "bugReceived", bugs: [1, 2, 3] });
-  console.log(getState());
-  // If the promise is rejected => dispatch()
-});
+// Unreliable solution
+// store.dispatch({
+//   type: "apiCallBegan",
+//   payload: {
+//     url: "/bugs",
+//     onSuccess: "bugsReceived",
+//     onError: "apiRequestFailed",
+//   },
+// });
+
+// store.dispatch({
+//   type: "error",
+//   payload: { message: "Error just occured" },
+// });
+
+// store.dispatch((dispatch, getState) => {
+// Call an API
+// When the promise is resolved => dispatch()
+
+// dispatch({ type: "bugReceived", bugs: [1, 2, 3] });
+// console.log(getState());
+
+// If the promise is rejected => dispatch()
+// });
 
 // import {
 //   bugAdded,
