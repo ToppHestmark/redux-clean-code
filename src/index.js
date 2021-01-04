@@ -1,15 +1,18 @@
 import configureStore from "./store/configureStore";
-import * as actions from "./store/api";
+import { loadBugs } from "./store/bugs";
 
 const store = configureStore();
 
+// UI layer
+store.dispatch(loadBugs());
+
+// #####################################
+// #####################################
+// import * as actions from "./store/api";
 // Safer solution
-store.dispatch(
-  actions.apiCallBegan({
-    url: "/bugs",
-    onSuccess: "bugsReceived",
-  })
-);
+// store.dispatch(
+//   actions.apiCallBegan()
+// );
 
 // Unreliable solution
 // store.dispatch({
@@ -36,6 +39,8 @@ store.dispatch(
 // If the promise is rejected => dispatch()
 // });
 
+// #####################################
+// #####################################
 // import {
 //   bugAdded,
 //   bugResolved,
