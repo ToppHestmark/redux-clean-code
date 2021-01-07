@@ -99,7 +99,7 @@ export const assignBugToUser = (bugId, userId) =>
 
 // Selector
 
-// Memorization to improve the performance, no need to re-calculate
+// Memorization to improve the performance with 'selector', no need to re-calculate
 // bugs => get unresolved bugs from the cache
 export const getUnresolvedBugs = createSelector(
   (state) => state.entities.bugs,

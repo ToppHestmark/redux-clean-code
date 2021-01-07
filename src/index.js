@@ -1,5 +1,10 @@
 import configureStore from "./store/configureStore";
-import { loadBugs, assignBugToUser, resolveBug, addBug } from "./store/bugs";
+import {
+  loadBugs,
+  assignBugToUser,
+  resolveBug,
+  addBug,
+} from "./store/actionTypes/bugs";
 
 const store = configureStore();
 

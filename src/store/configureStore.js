@@ -1,7 +1,7 @@
 // A place to register features
 
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import reducer from "./reducer";
+import reducer from "./reducers/reducer";
 import logger from "./middleware/logger";
 import toast from "./middleware/toast";
 import api from "./config/api";

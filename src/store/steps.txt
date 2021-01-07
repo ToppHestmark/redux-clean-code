@@ -1,5 +1,0 @@
-Creating the loading indicator:
-
-action: bugsRequested
-reducer: loading = true
-middleware: dispatch new action
