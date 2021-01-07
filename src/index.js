@@ -4,7 +4,7 @@ import {
   assignBugToUser,
   resolveBug,
   addBug,
-} from "./store/actionTypes/bugs";
+} from "./store/actions/bugs";
 
 const store = configureStore();
 

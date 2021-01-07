@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import bugsReducer from "./actionTypes/bugs";
-import projectsReducer from "./actionTypes/projects";
-import usersReducer from "./actionTypes/users";
+import bugsReducer from "./actions/bugs";
+import projectsReducer from "./actions/projects";
+import usersReducer from "./actions/users";
 
 export default combineReducers({
   bugs: bugsReducer,

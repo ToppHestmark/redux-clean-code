@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as actions from "../actionTypes/api";
+import * as actions from "../actions/api";
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
