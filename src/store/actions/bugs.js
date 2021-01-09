@@ -6,6 +6,8 @@ import moment from "moment";
 const slice = createSlice({
   name: "bugs",
   initialState: {
+    // States are normally define with array
+    // In this case the state is in object since the states contains other properties outside of the array
     list: [],
     loading: false,
     lastFetch: null,
