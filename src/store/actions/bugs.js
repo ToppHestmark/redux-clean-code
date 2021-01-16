@@ -4,7 +4,7 @@ import { apiCallBegan } from "./api";
 import moment from "moment";
 
 const slice = createSlice({
-  name: "bugs",
+  name: "BUGS",
   initialState: {
     // States are normally define with array
     // In this case the state is in object since the states contains other properties outside of the array
@@ -13,32 +13,32 @@ const slice = createSlice({
     lastFetch: null,
   },
   reducers: {
-    bugsRequested: (bugs, action) => {
+    BUGS_REQUESTED: (bugs, action) => {
       bugs.loading = true;
     },
 
-    bugReceived: (bugs, action) => {
+    BUG_RECEIVED: (bugs, action) => {
       bugs.list = action.payload;
       bugs.loading = false;
       bugs.lastFetch = Date.now();
     },
 
-    bugsRequestFailed: (bugs, action) => {
+    BUGS_REQUEST_FAILED: (bugs, action) => {
       bugs.loading = false;
     },
 
     // actions => action handler
-    bugAssignedToUser: (bugs, action) => {
+    BUG_ASSIGNED_TO_USER: (bugs, action) => {
       const { id: bugId, userId } = action.payload;
       const index = bugs.list.findIndex((bug) => bug.id === bugId);
       bugs.list[index].userId = userId;
     },
 
-    bugAdded: (bugs, action) => {
+    BUG_ADDED: (bugs, action) => {
       bugs.list.push(action.payload);
     },
 
-    bugResolved: (bugs, action) => {
+    BUG_RESOLVED: (bugs, action) => {
       const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
       bugs.list[index].resolved = true;
     },
@@ -46,12 +46,12 @@ const slice = createSlice({
 });
 
 const {
-  bugAdded,
-  bugResolved,
-  bugAssignedToUser,
-  bugReceived,
-  bugsRequested,
-  bugsRequestFailed,
+  BUG_ADDED,
+  BUG_RESOLVED,
+  BUG_ASSIGNED_TO_USER,
+  BUG_RECEIVED,
+  BUGS_REQUESTED,
+  BUGS_REQUEST_FAILED,
 } = slice.actions;
 export default slice.reducer;
 
@@ -68,9 +68,9 @@ export const loadBugs = () => (dispatch, getState) => {
   dispatch(
     apiCallBegan({
       url,
-      onStart: bugsRequested.type,
-      onSuccess: bugReceived.type,
-      onError: bugsRequestFailed.type,
+      onStart: BUGS_REQUESTED.type,
+      onSuccess: BUG_RECEIVED.type,
+      onError: BUGS_REQUEST_FAILED.type,
     })
   );
 };
@@ -80,7 +80,7 @@ export const addBug = (bug) =>
     url,
     method: "post",
     data: bug,
-    onSuccess: bugAdded.type,
+    onSuccess: BUG_ADDED.type,
   });
 
 export const resolveBug = (id) =>
@@ -88,7 +88,7 @@ export const resolveBug = (id) =>
     url: url + "/" + id,
     method: "patch",
     data: { resolved: true },
-    onSuccess: bugResolved.type,
+    onSuccess: BUG_RESOLVED.type,
   });
 
 export const assignBugToUser = (bugId, userId) =>
@@ -96,7 +96,7 @@ export const assignBugToUser = (bugId, userId) =>
     url: url + "/" + bugId,
     method: "patch",
     data: { userId },
-    onSuccess: bugAssignedToUser.type,
+    onSuccess: BUG_ASSIGNED_TO_USER.type,
   });
 
 // Selector
